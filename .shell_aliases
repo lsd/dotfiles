@@ -1,0 +1,159 @@
+#!/bin/bash
+
+# if you want to use MacVim (or GVim) as $VISUAL or $EDITOR, 
+# you should be aware that by default MacVim will fork a new 
+# process from the parent, resulting in the MacVim return value 
+# not reaching the parent process. This may confuse other applications, 
+# but Git seems to check the status of a temporary commit message file, 
+# which bypasses this limitation. In general, it is a good practice to 
+# export VISUAL='mvim -f' to ensure MacVim will not fork a new process 
+# when called, which should give you what you want when using it with 
+# your shell environment.
+ 
+export USING_OSX=true
+export VISUAL='mvim -f'
+export EDITOR='mvim -f'
+export EX='/Volumes/Tyvek'
+
+#if [ "`/bin/uname`" = "Darwin" ]; then
+#  USING_OSX=true
+#fi
+
+# Annoying things in Linux 
+# List newest files on the bottom 
+# List biggest files on bottom 
+# -h = human readable
+# -A = like -a but ignore . ..
+# colors 
+# -d and -L
+# -Q enclose in quotes 
+# Permissions # 
+
+
+#brew
+#alias brew-prefix='brew --prefix'
+
+# Synapt
+alias apt='sudo apt-get'
+alias aptinstall='sudo apt-get install'
+alias aptupdate='sudo apt-get update'
+alias aptupgrade='sudo apt-get upgrade'
+alias aptfix='sudo apt-get -f install'
+alias aptrm='sudo apt-get remove'
+alias aptsearch='apt-cache search'
+
+# Common sudo
+alias sucp='sudo cp'
+alias sumv='sudo mv'
+alias sush='sudo -s'
+
+alias update_hosts_file="sudo mvim /etc/hosts"
+alias suvim='sudo mvim'
+alias ctags='/usr/local/bin/ctags'
+
+
+# Gem
+#alias gem='sudo gem '
+alias sugem='sudo gem '
+alias gem-sudo='sudo gem'
+alias gem-update='sudo gem update'
+alias gem-list='sudo gem list'
+
+# reading
+alias scat='sudo cat'
+alias suview='sudo cat'
+
+# misc
+alias swapoff='sudo swapoff'
+alias swapon='sudo swapon'
+
+# Apache 
+alias restart-apache='sudo apachectl restart'
+alias restart-apache2='sudo apache2ctl restart'
+alias ensite='sudo a2ensite '
+alias dissite='sudo a2ensite '
+alias enmod='sudo a2enmod '
+alias dismod='sudo a2enmod '
+alias a2ensite='sudo a2ensite '
+alias a2enmod='sudo a2enmod '
+
+# pwnjutsu
+alias pwnjutsu='ssh blue@ssh.pwnjutsu.com'
+alias pwnjutsu_www='ssh blue@ssh.pwnjutsu.com && cd www && ls'
+#alias pwnjutsu_clients='ssh blue@ssh.pwnjutsu.com && cd www'
+#alias pwnjutsu_insightsynthesis='ssh blue@ssh.pwnjutsu.com'
+#alias pwnjutsu_incomezombie='ssh blue@ssh.pwnjutsu.com'
+#alias pwnjutsu_upload_home='scp TODO blue@ssh.pwnjutsu.com:~ '
+#alias pwnjutsu_upload_private='ssh blue@ssh.pwnjutsu.com'
+#alias pwnjutsu_upload_public='ssh blue@ssh.pwnjutsu.com'
+
+#pwn-remotes
+
+export PWN_HOST='blue@ssh.pwnjutsu.com'
+alias pwn-push="echo scp $1 $PWN_HOST:~ "
+
+# read back list of files / updates / etc.
+# 
+#alias rocketjump='ssh blue@rocketjump.ath.cx'
+
+# System
+alias free="free -m"
+#alias df="df -h" 
+alias untar="tar -zxvf "
+alias untar2="tar -xvjf " 
+#TODO create tar
+#alias pic="f-spot --view "
+alias nullminate="cat /dev/null > "
+
+if [ $USING_OSX ]; then
+  unset ls
+  unset lsf
+  unset lsd
+  # To get color to show up when piping to less/more, we need to force the color
+  # and define a terminal, since it's not sending output to a TTY.
+  # Then we need to have more/less escape the color sequences using -r
+  # demo: export CLICOLOR_FORCE='YES';export TERM='xterm-color';ls | less -r
+  #alias ls="export CLICOLOR_FORCE='YES';export TERM='xterm-color';ls -G"
+  alias ls="export TERM='xterm-color';ls -G"
+  alias less='less -r'
+  alias more='more -r'
+
+  alias lsf='ls -hAlFG'
+  alias lsd='ls -dG */'
+else
+  alias ls='ls --color=always'
+  alias lsf='ls -hAlF --group-directories-first --color=always --time-style=+" %m/%d/%y %I:%M %p "'
+  alias lsd='ls -d */'
+fi
+
+alias scan="grep -Rin --color" 
+alias scan-case="grep -Rn --color -l" # case-sensitive 
+alias scan-lite="grep -Rin --color -l" # only display filenames 
+alias rd='rmdir'
+alias rm='rm -i'
+
+# svn
+alias svu="svn update"
+alias svc="svn commit -m"
+alias svs="svn status"
+alias sva="svn add"
+
+alias rake="bundle exec rake"
+alias rgen="./script/generate "
+
+#alias scan-fast="grep -Rin --color --mmap"
+alias quit='exit'
+alias big1='du -s * | grep "^[0-9]\{4\}"' # Find files <=99M 
+alias big2='du -s * | grep "^[0-9]\{5\}"' # Find files <=99M 
+alias big3='du -s * | grep "^[0-9]\{6\}"' # Find files <=999M
+alias big4='du -s * | grep "^[0-9]\{7\}"' # Find files <=999G
+alias big5='du -s * | grep "^[0-9]\{8\}"' # Find files <=999G
+
+#shhMod                                        ~
+alias usermod='sudo usermod '
+alias suchown='sudo chown'
+alias suchmod='sudo chmod'
+alias gimme="ME=`whoami` && sudo echo \"chown $ME.$ME\""
+
+#alias easy_install='sudo easy_install'
+
