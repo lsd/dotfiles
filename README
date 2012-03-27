@@ -1,0 +1,9 @@
+These should work well on both Linux and OS X (better in zsh in both)
+
+.vimrc > .gvimrc and be sure to include the .vim/ folder with .vimrc
+
+.ssh/ public keys
+
+.zshrc + .shell_aliases for iTerm2/zshell customizations
+
+
