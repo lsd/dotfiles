@@ -1,0 +1,110 @@
+# Isam BASHRC. Last updated 08/16/2008
+
+[ -z "$PS1" ] && return
+export HISTCONTROL=ignoredups
+export HISTCONTROL=ignoreboth
+shopt -s checkwinsize
+[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color) color_prompt=yes;;
+    xterm) color_prompt=yes;;
+esac
+
+force_colored_prompt=yes
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+PS1='${debian_chroot:+($debian_chroot)}\[\033[43m\]\[\033[01;33m\]\u\[\033[44m\]\[\033[00m\]\[\033[43m\]@\[\033[01;32m\]\[\033[43m\]\h\[\033[00m\]\[\033[43m\]: \[\033[01;33m\]\w\[\033[00m\] $ '
+
+unset color_prompt force_color_prompt
+
+# enable color support of ls and also add handy aliases
+if [ "$TERM" != "dumb" ] && [ -x /usr/bin/dircolors ]; then
+    eval "`dircolors -b`"
+    alias ls='ls --color=auto'
+fi
+
+#if [ -f ~/.bash_aliases ]; then
+#    . ~/.bash_aliases
+#fi
+
+# Synapt!
+alias apt='sudo apt-get'
+alias aptinstall='sudo apt-get install'
+alias aptupdate='sudo apt-get update'
+alias aptupgrade='sudo apt-get upgrade'
+alias aptfix='sudo apt-get -f install'
+alias aptsearch='apt-cache search'
+
+# Common su
+alias sucp='sudo cp'
+alias sumv='sudo mv'
+alias rd='rmdir'
+alias suvim='sudo vim'
+alias sugvim='sudo gvim'
+alias swapoff='sudo swapoff'
+alias swapon='sudo swapon'
+alias scat='sudo cat'
+alias suview='sudo cat'
+alias gimme="ME=`whoami` && sudo echo \"chown $ME.$ME\""
+alias a2restart='sudo apache2ctl restart'
+alias a2ensite='sudo a2ensite '
+alias a2enmod='sudo a2renmod '
+
+# Remote 
+alias mango='ssh blue@mango.secret.com'
+alias hermacbook='echo "UPDATE ME .bashrc:90"'
+alias linode='ssh blue@secret.linode.com'
+alias lish='ssh linode90210@germany.linode.com'
+
+# System
+alias free="free -m"
+alias df="df -h" 
+alias untar="tar -zxvf "
+alias untar2="tar -xvjf " 
+alias pic="f-spot --view "
+alias nullminate="cat /dev/null > "
+alias lsf='ls -hAlF --group-directories-first --color=always --time-style=+" %m/%d/%y %I:%M %p "'
+alias lsd='ls -d */'
+alias scan="grep -Rin --color" 
+alias scan-case="grep -Rn --color -l" # case-sensitive 
+alias scan-lite="grep -Rin --color -l" # only display filenames 
+
+# svn
+alias svu="svn update"
+alias svc="svn commit -m"
+alias svs="svn status"
+alias sva="svn add"
+
+#alias scan-fast="grep -Rin --color --mmap"
+export GEMZ='/var/lib/gems/1.8/gems/'
+alias big1='du -hs * | grep "[1-9]\{2\}M"' # Find files >=10M 
+alias big2='du -hs * | grep "[4-9]\{2\}M"' # Find files >=49M
+alias big3='du -hs * | grep "[1-9]\{3\}M"' # Find files >=100M
+
+setterm -blength 0
+
+PATH="$PATH:~/bin"
+# Change the window title of X terminals 
+case ${TERM} in
+	xterm*|rxvt*|Eterm|aterm|kterm|gnome)
+		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
+		;;
+	screen)
+		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
+		;;
+esac
+
+
