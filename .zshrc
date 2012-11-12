@@ -19,19 +19,23 @@ export ZSH=$HOME/.oh-my-zsh
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git brew)
 #plugins=(brew osx gem rails git ruby)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-#export PATH=/sw/bin:/sw/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/Users/$USER/bin:$HOME/.rvm/bin
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/Users/$USER/bin:$HOME/.rvm/bin
+#export PATH=/sw/bin:/sw/sbin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/Users/blue/bin:$HOME/.rvm/bin
+export PATH=$PATH:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/usr/local/pear/bin
+export PATH=$PATH:/Users/blue/Applications:/Users/blue/bin:$HOME/.rvm/bin
+export PATH=$PATH:/android-sdk-macosx/tools:/android-sdk-macosx/platform-tools
 
 # grml.org - emulate bash behavior ( default zsh key is ^[_ )
 #insert-last-typed-word() { zle insert-last-word -- 0 -1 };
 #zle -N insert-last-typed-word;
 bindkey "^[." insert-last-word
 
+# Our custom aliases (important. TODO warn if not found)
 . ~/.shell_aliases
 
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function

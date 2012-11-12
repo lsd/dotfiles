@@ -15,6 +15,42 @@ export VISUAL='mvim -f'
 export EDITOR='mvim -f'
 export EX='/Volumes/Tyvek'
 
+function go_dir() {
+  local new_win='-n' # set to '' to jump to existing finder window
+	local dir=$1
+	echo "Jumping into: $dir\n"
+	cd $dir
+	#open -g ${new_win} $dir
+}
+
+alias go.projects="go_dir $DIR_PROJECTS"
+alias go.clients="go_dir $DIR_CLIENTS"
+alias go.desktop="go_dir $DIR_DESKTOP"
+alias go.work="go_dir $DIR_WORK"
+alias go.work.current="go_dir $DIR_WORK_CURRENT1"
+alias go.work.current.mltoolkit="go_dir $DIR_WORK_CURRENT2"
+alias go.work.current.charitybuzz="go_dir $DIR_WORK_CURRENT3"
+
+
+# crude
+#
+# $ export FILENAME='path'
+# $ cd $FILENAME
+
+# ++ more control, exposes more functions, opens new window
+#
+# $ alias projects="cd $DIR_PROJECTS && open -g${new_win} . "
+# $ 
+# $ go[tab] # expands to => go-projects
+
+# I have been using this. adding a quick entry occasionally.
+# There's a lot of duplicated content. It looks like I find
+# this useful and revise it based on evaluating my experience
+# with it and my likes/dislikes.
+# 
+# $ go[tab] # expands to => go-projects
+# 
+
 #if [ "`/bin/uname`" = "Darwin" ]; then
 #  USING_OSX=true
 #fi
@@ -77,20 +113,7 @@ alias dismod='sudo a2enmod '
 alias a2ensite='sudo a2ensite '
 alias a2enmod='sudo a2enmod '
 
-# pwnjutsu
-alias pwnjutsu='ssh blue@ssh.pwnjutsu.com'
-alias pwnjutsu_www='ssh blue@ssh.pwnjutsu.com && cd www && ls'
-#alias pwnjutsu_clients='ssh blue@ssh.pwnjutsu.com && cd www'
-#alias pwnjutsu_insightsynthesis='ssh blue@ssh.pwnjutsu.com'
-#alias pwnjutsu_incomezombie='ssh blue@ssh.pwnjutsu.com'
-#alias pwnjutsu_upload_home='scp TODO blue@ssh.pwnjutsu.com:~ '
-#alias pwnjutsu_upload_private='ssh blue@ssh.pwnjutsu.com'
-#alias pwnjutsu_upload_public='ssh blue@ssh.pwnjutsu.com'
-
-#pwn-remotes
-
-export PWN_HOST='blue@ssh.pwnjutsu.com'
-alias pwn-push="echo scp $1 $PWN_HOST:~ "
+#alias www-push="echo scp $1 $WWW_HOST: "
 
 # read back list of files / updates / etc.
 # 
@@ -154,6 +177,9 @@ alias usermod='sudo usermod '
 alias suchown='sudo chown'
 alias suchmod='sudo chmod'
 alias gimme="ME=`whoami` && sudo echo \"chown $ME.$ME\""
+
+alias targz='sudo chmod'
+alias ungz="tar -zxvf $1 "
 
 #alias easy_install='sudo easy_install'
 
